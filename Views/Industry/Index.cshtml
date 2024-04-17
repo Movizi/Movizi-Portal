@@ -3,7 +3,7 @@
 <div class="industries">
 	<div class="industries-header d-flex align-items-center justify-content-between">
 		<h1>Industries</h1>
-		<a class="btn btn-primary" asp-controller="Industry" asp-action="Upsert">Create New Industry</a>
+		<a class="btn btn-primary" asp-action="Upsert">Create New Industry</a>
 	</div>
 
 	<table class="table table-bordered table-striped">
@@ -24,10 +24,10 @@
 						@industry.Name
 					</td>
 					<td>
-						<a asp-controller="Industry" asp-action="Upsert" asp-route-id="@industry.Id">Edit</a>
+						<a asp-action="Upsert" asp-route-id="@industry.Id">Edit</a>
 					</td>
 					<td>
-						<a asp-controller="Industry" asp-action="Delete" asp-route-id="@industry.Id">Delete</a>
+						<a asp-action="Delete" asp-route-id="@industry.Id">Delete</a>
 					</td>
 				</tr>
 			}

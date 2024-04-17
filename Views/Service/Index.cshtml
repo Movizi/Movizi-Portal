@@ -1,0 +1,36 @@
+﻿@model List<Service>
+
+<div class="services">
+	<div class="services-header d-flex align-items-center justify-content-between">
+		<h1>Services</h1>
+		<a class="btn btn-primary" asp-action="Upsert">Create New Service</a>
+	</div>
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>
+					Name
+				</th>
+				<th>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Service service in Model)
+			{
+				<tr>
+					<td>
+						@service.Name
+					</td>
+					<td>
+						<a asp-action="Upsert" asp-route-id="@service.Id">Edit</a>
+					</td>
+					<td>
+						<a asp-action="Delete" asp-route-id="@service.Id">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

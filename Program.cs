@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Movizi_Portal.Data;
 using Movizi_Portal.Repository;
+using Movizi_Portal.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movizi_Portal.Data;
+using Movizi_Portal.Repository.IRepository;
 using System.Linq.Expressions;
 
 namespace Movizi_Portal.Repository
 {
-	public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
 	{
 		private readonly ApplicationDbContext _db;
 		internal DbSet<T> dbSet;

@@ -4,17 +4,17 @@ using Movizi_Portal.Repository.IRepository;
 
 namespace Movizi_Portal.Repository
 {
-	public class IndustryRepository : Repository<Industry>, IIndustryRepository
+	public class ProjectRepository : Repository<Project>, IProjectRepository
 	{
 		private readonly ApplicationDbContext _db;
-		public IndustryRepository(ApplicationDbContext db) : base(db)
+		public ProjectRepository(ApplicationDbContext db) : base(db)
 		{
 			_db = db;
 		}
 
-		public void Update(Industry industry)
+		public void Update(Project project)
 		{
-			_db.Industries.Update(industry);
+			_db.Projects.Update(project);
 		}
 	}
 }

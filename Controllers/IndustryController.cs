@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Movizi_Portal.Data;
 using Movizi_Portal.Models;
-using Movizi_Portal.Repository;
+using Movizi_Portal.Repository.IRepository;
 
 namespace Movizi_Portal.Controllers
 {
@@ -15,8 +14,8 @@ namespace Movizi_Portal.Controllers
 
 		public IActionResult Index()
 		{
-			List<Industry> Industries = _unitOfWork.Industry.GetAll().ToList();
-			return View(Industries);
+			List<Industry> industries = _unitOfWork.Industry.GetAll().ToList();
+			return View(industries);
 		}
 
 		public IActionResult Upsert(int? id)
