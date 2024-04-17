@@ -1,0 +1,13 @@
+﻿@model Industry
+
+<div class="delete-industry">
+	<h1>Delete Industry</h1>
+	<form method="post">
+		<div>
+			<label asp-for="@Model.Name">Name</label>
+			<input disabled asp-for="@Model.Name" />
+		</div>
+		<button type="submit">Delete</button>
+		<button asp-controller="Industry" asp-action="Index">Go Back</button>
+	</form>
+</div>

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Movizi Portal</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/Movizi_Portal.styles.css" asp-append-version="true" />
+</head>
+<body>
+	<div class="portal-layout d-flex">
+		<div class="sidebar d-flex flex-column align-items-center justify-content-between">
+			<div class="sidebar-body d-flex flex-column align-items-center">
+				<div class="sidebar-title d-flex align-items-center">
+					<img src="~/images/static/Logo.svg" alt="Movizi Logo" />
+					<h3>Movizi</h3>
+				</div>
+				<div class="sidebar-profile-details d-flex flex-column align-items-center">
+					<img src="~/images/static/Avatar.png" alt="Profile Image" />
+					<div class="sidebar-profile-fullname d-flex flex-column align-items-center">
+						<h4>Akaki</h4>
+						<h4>Tsutskiridze</h4>
+					</div>
+					<a asp-controller="" asp-action="">Edit</a>
+				</div>
+				<div class="sidebar-links">
+					<a class="sidebar-link" asp-controller="Dashboard" asp-action="Index" data-route-name="" class="sidebar-link">
+						<img src="~/images/static/Dashboard.svg" alt="Dashboard" />
+						<div>Dashboard</div>
+					</a>
+					<a class="sidebar-link" asp-controller="" asp-action="" data-route-name="User" class="sidebar-link">
+						<img src="~/images/static/Users.svg" alt="User" />
+						<div>Users</div>
+					</a>
+					<div class="sidebar-dropdown">
+						<button>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path fill="#ffff" d="M12 16.8C11.3 16.8 10.6 16.53 10.07 16L3.55 9.48C3.26 9.19 3.26 8.71 3.55 8.42C3.84 8.13 4.32 8.13 4.61 8.42L11.13 14.94C11.61 15.42 12.39 15.42 12.87 14.94L19.39 8.42C19.68 8.13 20.16 8.13 20.45 8.42C20.74 8.71 20.74 9.19 20.45 9.48L13.93 16C13.4 16.53 12.7 16.8 12 16.8Z" fill="#121212" />
+							</svg>
+							<p>Management</p>
+						</button>
+						<div class="sidebar-dropdown-list">
+							<a class="sidebar-link" asp-controller="Project" asp-action="Index" data-route-name="Project" class="sidebar-link">
+								<img src="~/images/static/Dashboard.svg" alt="Dashboard" />
+								<div>Projects</div>
+							</a>
+							<a class="sidebar-link" asp-controller="Industry" asp-action="Index" data-route-name="Industry" class="sidebar-link">
+								<img src="~/images/static/Dashboard.svg" alt="Dashboard" />
+								<div>Industries</div>
+							</a>
+							<a class="sidebar-link" asp-controller="" asp-action="" data-route-name="Service">
+								<img src="~/images/static/Dashboard.svg" alt="Dashboard" />
+								<div>Services</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sidebar-foot d-flex justify-content-center">
+				<a asp-controller="" asp-action="">
+					<img src="~/images/static/logout.svg" alt="Logout" />
+					Log out
+				</a>
+			</div>
+		</div>
+		<main class="main-container" role="main">
+			@RenderBody()
+		</main>
+	</div>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
