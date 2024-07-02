@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Movizi_Portal.Migrations
 {
     /// <inheritdoc />
-    public partial class createDB : Migration
+    public partial class createDBAddTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,12 +47,11 @@ namespace Movizi_Portal.Migrations
                     Subtitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     WebLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IndustryId = table.Column<int>(type: "int", nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "time", nullable: true),
+                    Duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ColorsImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FontImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SliderImages = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FontImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -66,11 +65,29 @@ namespace Movizi_Portal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CarouselImages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarouselImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CarouselImages_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProjectServices",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
                     ServiceId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -92,6 +109,11 @@ namespace Movizi_Portal.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CarouselImages_ProjectId",
+                table: "CarouselImages",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Projects_IndustryId",
                 table: "Projects",
                 column: "IndustryId");
@@ -110,6 +132,9 @@ namespace Movizi_Portal.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CarouselImages");
+
             migrationBuilder.DropTable(
                 name: "ProjectServices");
 

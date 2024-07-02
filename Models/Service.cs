@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace Movizi_Portal.Models
 {
@@ -9,6 +9,7 @@ namespace Movizi_Portal.Models
 		[Required]
 		[MaxLength(20)]
 		public string Name { get; set; }
-		public ICollection<ProjectService>? ProjectServices { get; set; }
+		[ValidateNever]
+		public List<ProjectService> ProjectServices { get; set; }
 	}
 }

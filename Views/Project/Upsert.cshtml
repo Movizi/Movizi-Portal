@@ -1,0 +1,94 @@
+﻿@model ProjectVM
+
+<div class="upsert-project row">
+	<h1>@(Model != null && Model.Project.Id != 0 ? "Edit" : "Create") Project</h1>
+	<form class="col-6" method="post" enctype="multipart/form-data">
+		<div>
+			<label asp-for="Project.Title">Title</label>
+			<input asp-for="Project.Title" />
+			<span asp-validation-for="Project.Title"></span>
+		</div>
+		<div>
+			<label asp-for="Project.Subtitle">Subtitle</label>
+			<input asp-for="Project.Subtitle" />
+			<span asp-validation-for="Project.Subtitle"></span>
+		</div>
+		<div>
+			<label asp-for="Project.WebLink">Website Link</label>
+			<input asp-for="Project.WebLink" />
+			<span asp-validation-for="Project.WebLink"></span>
+		</div>
+		<div>
+			<label asp-for="Project.IndustryId" class="ms-2"></label>
+			<Select asp-for="Project.IndustryId" asp-items="@Model.IndustryList" class="form-select border-0 shadow">
+				<option disabled selected>--Select Industry--</option>
+			</Select>
+			<span asp-validation-for="Project.IndustryId" class="text-danger"></span>
+		</div>
+		@*<div>
+			<label asp-for="Project.StartDate">Start Date</label>
+			<input asp-for="Project.StartDate" />
+			<span asp-validation-for="Project.StartDate"></span>
+		</div>
+		<div>
+			<label asp-for="Project.EndDate">End Date</label>
+			<input asp-for="Project.EndDate" />
+			<span asp-validation-for="Project.EndDate"></span>
+		</div>*@
+		<div>
+			<label asp-for="Project.Description">Description</label>
+			<textarea asp-for="Project.Description"></textarea>
+			<span asp-validation-for="Project.Description"></span>
+		</div>
+		<div>
+			<input type="file" name="mainImage" class="form-control border-0 shadow" />
+			<label asp-for="Project.ImageUrl" class="ms-2"></label>
+		</div>
+		<div>
+			<input type="file" name="fontImage" class="form-control border-0 shadow" />
+			<label asp-for="Project.FontImageUrl" class="ms-2"></label>
+		</div>
+		<div>
+			<input type="file" name="colorsImage" class="form-control border-0 shadow" />
+			<label asp-for="Project.ColorsImageUrl" class="ms-2"></label>
+		</div>
+		<div>
+			<input type="file" name="carouselImages" multiple class="form-control border-0 shadow" />
+			<label asp-for="CarouselImage" class="ms-2"></label>
+		</div>
+		<div>
+			<label asp-for="SelectedServices" class="ms-2"></label>
+			<Select asp-for="SelectedServices" asp-items="@Model.ServiceList" multiple class="form-select border-0 shadow">
+				<option disabled selected>--Select Service--</option>
+			</Select>
+			<span asp-validation-for="SelectedServices" class="text-danger"></span>
+		</div>
+		@if (Model.Project != null && Model.Project.Id != 0)
+		{
+			<button type="submit">Update</button>
+		}
+		else
+		{
+			<button type="submit">Create</button>
+		}
+		<button asp-action="Index">Go Back</button>
+	</form>
+	@if (Model.Project != null && Model.Project.Id != 0)
+	{
+		<div class="col-6">
+			<img src="@Model.Project.ImageUrl" width="100%"
+				 style="border-radius:5px; border:1px solid #bbb9b9;" />
+			<img src="@Model.Project.FontImageUrl" width="100%"
+				 style="border-radius:5px; border:1px solid #bbb9b9;" />
+			<img src="@Model.Project.ColorsImageUrl" width="100%"
+				 style="border-radius:5px; border:1px solid #bbb9b9;" />
+			<div class="d-flex justify-content-between align-items-center flex-wrap">
+				@foreach (var carouselImage in Model.CarouselImageList)
+				{
+					<img src="@carouselImage.ImageUrl" width="100%"
+						 style="border-radius:5px; border:1px solid #bbb9b9;" />
+				}
+			</div>
+		</div>
+	}
+</div>

@@ -8,6 +8,7 @@ namespace Movizi_Portal.Data
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
 		public DbSet<Project> Projects { get; set; }
+		public DbSet<CarouselImage> CarouselImages { get; set; }
 		public DbSet<Service> Services { get; set; }
 		public DbSet<ProjectService> ProjectServices { get; set; }
 		public DbSet<Industry> Industries { get; set; }

@@ -1,0 +1,10 @@
+﻿@model Project
+
+<div class="delete-project">
+	<form asp-action="Delete">
+		<input type="hidden" asp-for="@Model.Id" />
+		<h1>Are you sure, Delete this Project?</h1>
+		<button type="submit">Delete</button>
+		<a asp-action="Index">Cancel</a>
+	</form>
+</div>

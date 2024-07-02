@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Movizi_Portal.Repository
 {
-    public class Repository<T> : IRepository<T> where T : class
+	public class Repository<T> : IRepository<T> where T : class
 	{
 		private readonly ApplicationDbContext _db;
 		internal DbSet<T> dbSet;
@@ -21,18 +21,35 @@ namespace Movizi_Portal.Repository
 			dbSet.Add(entity);
 		}
 
-		public T Get(Expression<Func<T, bool>> filter)
+		public void AddRange(IEnumerable<T> entities)
+		{
+			dbSet.AddRange(entities);
+		}
+
+		public T Get(Expression<Func<T, bool>>? filter = null)
 		{
 			IQueryable<T> query;
 			query = dbSet;
-			query = query.Where(filter);
+
+			if (filter != null)
+			{
+				query = query.Where(filter);
+			}
 
 			return query.FirstOrDefault();
 		}
 
-		public IEnumerable<T> GetAll()
+		public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null)
 		{
-			return dbSet.ToList();
+			IQueryable<T> query;
+			query = dbSet;
+
+			if (filter != null)
+			{
+				query = query.Where(filter);
+			}
+
+			return query.ToList();
 		}
 
 		public void Remove(T entity)

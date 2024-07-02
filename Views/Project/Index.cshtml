@@ -1,6 +1,44 @@
 ﻿@model List<Project>
 
 <div class="projects">
-	<h1>Projects</h1>
-
+	<div class="projects-header d-flex align-items-center justify-content-between">
+		<h1>Projects</h1>
+		<a asp-action="Upsert">
+			Upload New Project
+			<img src="~/images/static/upload.svg" alt="upload" />
+		</a>
+	</div>
+	<div class="project-list d-flex flex-wrap justify-content-center">
+		@if (Model.Count > 0)
+		{
+			@foreach (Project project in Model)
+			{
+				<div class="project-card">
+					<a asp-action="Upsert" asp-route-id="@project.Id">
+						<div class="project-image-container">
+							@if (!string.IsNullOrEmpty(project.ImageUrl))
+							{
+								<img class="project-image" src="@project.ImageUrl" alt="@project.Title Image" />
+							}
+							else
+							{
+								<div class="no-project-image">
+									<img src="/images/static/Logo.svg" alt="Logo" />
+								</div>
+							}
+							<div class="project-image-overlay"></div>
+						</div>
+						<h1 class="project-title">@project.Title</h1>
+					</a>
+					<div>
+						<a asp-action="Delete" asp-route-id="@project.Id" class="btn btn-danger">Delete</a>
+					</div>
+				</div>
+			}
+		}
+		else
+		{
+			<h3 class="no-projects">There Are No Projects Added Yet</h3>
+		}
+	</div>
 </div>

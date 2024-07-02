@@ -12,8 +12,8 @@ using Movizi_Portal.Data;
 namespace Movizi_Portal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240417154034_createDB")]
-    partial class createDB
+    [Migration("20240425174521_createDBAddTables")]
+    partial class createDBAddTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,26 @@ namespace Movizi_Portal.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Movizi_Portal.Models.CarouselImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("CarouselImages");
+                });
 
             modelBuilder.Entity("Movizi_Portal.Models.Industry", b =>
                 {
@@ -59,21 +79,17 @@ namespace Movizi_Portal.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<TimeSpan?>("Duration")
-                        .HasColumnType("time");
+                    b.Property<string>("Duration")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FontImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IndustryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("SliderImages")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Subtitle")
                         .IsRequired()
@@ -97,11 +113,9 @@ namespace Movizi_Portal.Migrations
 
             modelBuilder.Entity("Movizi_Portal.Models.ProjectService", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
@@ -136,6 +150,17 @@ namespace Movizi_Portal.Migrations
                     b.ToTable("Services");
                 });
 
+            modelBuilder.Entity("Movizi_Portal.Models.CarouselImage", b =>
+                {
+                    b.HasOne("Movizi_Portal.Models.Project", "Project")
+                        .WithMany("CarouselImages")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("Movizi_Portal.Models.Project", b =>
                 {
                     b.HasOne("Movizi_Portal.Models.Industry", "Industry")
@@ -168,6 +193,8 @@ namespace Movizi_Portal.Migrations
 
             modelBuilder.Entity("Movizi_Portal.Models.Project", b =>
                 {
+                    b.Navigation("CarouselImages");
+
                     b.Navigation("ProjectServices");
                 });
 
